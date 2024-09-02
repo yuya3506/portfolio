@@ -62,8 +62,8 @@ Docker
 
 ## 各種設計
 ### API
-https://pretavi.com/search/ 観光地検索画面
-https://pretavi.com/plan/create 旅行プラン作成画面
-https://pretavi.com/plan/edit 旅行プラン編集画面
-https://pretavi.com/reserve 予約画面
+https://pretavi.com/search/ 観光地検索画面<br>
+https://pretavi.com/plan/create 旅行プラン作成画面<br>
+https://pretavi.com/plan/edit 旅行プラン編集画面<br>
+https://pretavi.com/reserve 予約画面<br>
 ### DB(会員登録機能を実装する場合)
