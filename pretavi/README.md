@@ -56,7 +56,7 @@ GO
 ### DB
 Supabase
 #### 選定理由
-SQLを用いたDBで無料枠があるため
+SQLを用いたRDBで無料枠があるため
 ### その他
 Docker
 
