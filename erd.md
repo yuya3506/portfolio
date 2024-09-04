@@ -1,6 +1,6 @@
 # ER図
 
-## プリタビデータベース
+# pretavi_db
 
 ```mermaid
 ---
