@@ -1,0 +1,229 @@
+openapi: 3.0.3
+info:
+  title: Travel Management API
+  description: API for managing travel plans, destinations, bookings, and notifications.
+  version: 1.0.0
+servers:
+  - url: https://api.example.com/v1
+    description: Production server
+
+paths:
+  /destinations:
+    get:
+      summary: Get a list of destinations
+      description: Retrieve a list of destinations with optional search parameters.
+      parameters:
+        - name: region
+          in: query
+          description: Filter destinations by region.
+          required: false
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: Filter destinations by name.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of destinations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Destination'
+  
+  /destinations/{destinationId}:
+    get:
+      summary: Get destination details
+      description: Retrieve details of a specific destination.
+      parameters:
+        - name: destinationId
+          in: path
+          required: true
+          description: ID of the destination
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Destination details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Destination'
+
+  /reviews:
+    post:
+      summary: Create a new review
+      description: Submit a review for a specific destination.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        '201':
+          description: Review created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+
+  /trip-plans:
+    post:
+      summary: Create a new trip plan
+      description: Create a travel plan with specified destinations and dates.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TripPlan'
+      responses:
+        '201':
+          description: Trip plan created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TripPlan'
+
+  /trip-plans/{tripPlanId}:
+    get:
+      summary: Get trip plan details
+      description: Retrieve details of a specific trip plan.
+      parameters:
+        - name: tripPlanId
+          in: path
+          required: true
+          description: ID of the trip plan
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Trip plan details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TripPlan'
+
+  /bookings:
+    post:
+      summary: Create a new booking
+      description: Book tickets or other services related to a destination.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        '201':
+          description: Booking created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+
+  /reminders:
+    post:
+      summary: Create a new reminder
+      description: Set a reminder for a booking or travel plan.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reminder'
+      responses:
+        '201':
+          description: Reminder created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reminder'
+
+components:
+  schemas:
+    Destination:
+      type: object
+      properties:
+        destination_id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        region:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
+
+    Review:
+      type: object
+      properties:
+        review_id:
+          type: integer
+        user_id:
+          type: integer
+        destination_id:
+          type: integer
+        review_text:
+          type: string
+        rating:
+          type: integer
+        review_date:
+          type: string
+          format: date-time
+
+    TripPlan:
+      type: object
+      properties:
+        trip_plan_id:
+          type: integer
+        user_id:
+          type: integer
+        plan_name:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+
+    Booking:
+      type: object
+      properties:
+        booking_id:
+          type: integer
+        user_id:
+          type: integer
+        destination_id:
+          type: integer
+        booking_type:
+          type: string
+        booking_date:
+          type: string
+          format: date-time
+        booking_reference:
+          type: string
+
+    Reminder:
+      type: object
+      properties:
+        reminder_id:
+          type: integer
+        user_id:
+          type: integer
+        booking_id:
+          type: integer
+        reminder_time:
+          type: string
+          format: date-time
+        reminder_type:
+          type: string
