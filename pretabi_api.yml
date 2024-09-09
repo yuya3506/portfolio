@@ -10,6 +10,35 @@ servers:
 paths:
   /destinations:
     get:
+      tags: 
+        - 観光地関連
+      summary: Get a list of destinations
+      description: Retrieve a list of destinations with optional search parameters.
+      parameters:
+        - name: region
+          in: query
+          description: Filter destinations by region.
+          required: false
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: Filter destinations by name.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of destinations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Destination'
+    post:
+      tags: 
+        - 観光地関連
       summary: Get a list of destinations
       description: Retrieve a list of destinations with optional search parameters.
       parameters:
@@ -37,6 +66,8 @@ paths:
   
   /destinations/{destinationId}:
     get:
+      tags: 
+        - 観光地関連
       summary: Get destination details
       description: Retrieve details of a specific destination.
       parameters:
@@ -54,8 +85,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/Destination'
 
-  /reviews:
+  /destinations/{destinationId}/reviews:
     post:
+      tags:
+        - 観光地関連
       summary: Create a new review
       description: Submit a review for a specific destination.
       requestBody:
@@ -73,6 +106,8 @@ paths:
 
   /trip-plans:
     post:
+      tags:
+        - 旅行プラン関連
       summary: Create a new trip plan
       description: Create a travel plan with specified destinations and dates.
       requestBody:
@@ -90,6 +125,8 @@ paths:
 
   /trip-plans/{tripPlanId}:
     get:
+      tags:
+        - 旅行プラン関連
       summary: Get trip plan details
       description: Retrieve details of a specific trip plan.
       parameters:
@@ -109,6 +146,8 @@ paths:
 
   /bookings:
     post:
+      tags:
+        - 旅行プラン関連
       summary: Create a new booking
       description: Book tickets or other services related to a destination.
       requestBody:
@@ -126,6 +165,8 @@ paths:
 
   /reminders:
     post:
+      tags:
+        - 通知関連
       summary: Create a new reminder
       description: Set a reminder for a booking or travel plan.
       requestBody:
